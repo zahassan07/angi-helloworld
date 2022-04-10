@@ -1,0 +1,17 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  labels:
+    {{- include "angi-helloworld.labels" . | nindent 4 }}
+    release: kube-prometheus-stack
+  name: kube-prometheus-stack-{{ include "angi-helloworld.fullname" . }}
+spec:
+  endpoints:
+  - path: /metrics
+    port: http-web
+  namespaceSelector:
+    matchNames:
+    - {{ .Release.Namespace }}
+  selector:
+    matchLabels:
+      {{- include "angi-helloworld.selectorLabels" . | nindent 6 }}
