@@ -53,6 +53,10 @@ app.get('/metrics', async (req, res) => {
   res.send(await Prometheus.register.metrics())
 })
 
+app.get('/health', (req, res) => {
+  res.status(200).json({ status: 'ok'})
+})
+
 // Error handler
 app.use((err, req, res, next) => {
   res.statusCode = 500
@@ -65,7 +69,7 @@ app.use((err, req, res, next) => {
 app.use((req, res, next) => {
   // Ignore requests that don't have a route path
   if (req.route === undefined) {
-    next()
+    return next()
   }
   const responseTimeInMs = Date.now() - res.locals.startEpoch
 
