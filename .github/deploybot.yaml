@@ -5,5 +5,5 @@ deployments:
 - name: development
 # Automatically trigger deploy on default branch passing
 # on_push: true
-- name: <script>alert('staging')</script>
+- name: staging
 - name: production
